@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		861D1B4D1D95A9BA007E36C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861D1B4C1D95A9BA007E36C0 /* AppDelegate.swift */; };
-		861D1B4F1D95A9BA007E36C0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861D1B4E1D95A9BA007E36C0 /* ViewController.swift */; };
 		861D1B521D95A9BA007E36C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 861D1B501D95A9BA007E36C0 /* Main.storyboard */; };
 		861D1B541D95A9BA007E36C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861D1B531D95A9BA007E36C0 /* Assets.xcassets */; };
 		861D1B571D95A9BA007E36C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 861D1B551D95A9BA007E36C0 /* LaunchScreen.storyboard */; };
 		861D1B5F1D95B86A007E36C0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861D1B5E1D95B86A007E36C0 /* LoginViewController.swift */; };
+		86BEE3B61DA60C6C007763C6 /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEE3B51DA60C6C007763C6 /* PictureViewController.swift */; };
+		86BEE3B91DA61571007763C6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEE3B81DA61571007763C6 /* Post.swift */; };
+		86BEE3BB1DA61E42007763C6 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEE3BA1DA61E42007763C6 /* PostViewController.swift */; };
 		E47A05DFEE542D37447190B0 /* Pods_instaclone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A86BB14307EF72D97CB0F47 /* Pods_instaclone.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,12 +24,14 @@
 		66D0D339D364200759353AE8 /* Pods-instaclone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone.release.xcconfig"; path = "Pods/Target Support Files/Pods-instaclone/Pods-instaclone.release.xcconfig"; sourceTree = "<group>"; };
 		861D1B491D95A9BA007E36C0 /* instaclone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instaclone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		861D1B4C1D95A9BA007E36C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		861D1B4E1D95A9BA007E36C0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		861D1B511D95A9BA007E36C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		861D1B531D95A9BA007E36C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		861D1B561D95A9BA007E36C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		861D1B581D95A9BA007E36C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		861D1B5E1D95B86A007E36C0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		86BEE3B51DA60C6C007763C6 /* PictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureViewController.swift; sourceTree = "<group>"; };
+		86BEE3B81DA61571007763C6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		86BEE3BA1DA61E42007763C6 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,15 +84,41 @@
 		861D1B4B1D95A9BA007E36C0 /* instaclone */ = {
 			isa = PBXGroup;
 			children = (
+				86BEE3BD1DA62327007763C6 /* Views */,
+				86BEE3B71DA61552007763C6 /* Models */,
+				86BEE3B41DA60C5A007763C6 /* Controllers */,
 				861D1B4C1D95A9BA007E36C0 /* AppDelegate.swift */,
-				861D1B4E1D95A9BA007E36C0 /* ViewController.swift */,
 				861D1B501D95A9BA007E36C0 /* Main.storyboard */,
 				861D1B531D95A9BA007E36C0 /* Assets.xcassets */,
 				861D1B551D95A9BA007E36C0 /* LaunchScreen.storyboard */,
 				861D1B581D95A9BA007E36C0 /* Info.plist */,
-				861D1B5E1D95B86A007E36C0 /* LoginViewController.swift */,
 			);
 			path = instaclone;
+			sourceTree = "<group>";
+		};
+		86BEE3B41DA60C5A007763C6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				861D1B5E1D95B86A007E36C0 /* LoginViewController.swift */,
+				86BEE3B51DA60C6C007763C6 /* PictureViewController.swift */,
+				86BEE3BA1DA61E42007763C6 /* PostViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		86BEE3B71DA61552007763C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				86BEE3B81DA61571007763C6 /* Post.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		86BEE3BD1DA62327007763C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,9 +243,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86BEE3BB1DA61E42007763C6 /* PostViewController.swift in Sources */,
 				861D1B5F1D95B86A007E36C0 /* LoginViewController.swift in Sources */,
-				861D1B4F1D95A9BA007E36C0 /* ViewController.swift in Sources */,
+				86BEE3B61DA60C6C007763C6 /* PictureViewController.swift in Sources */,
 				861D1B4D1D95A9BA007E36C0 /* AppDelegate.swift in Sources */,
+				86BEE3B91DA61571007763C6 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

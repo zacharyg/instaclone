@@ -26,6 +26,16 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onSignIn(sender: AnyObject) {
+        PFUser.logInWithUsernameInBackground(usernameField.text!, password: passwordField.text!) { (user: PFUser?, error: NSError?) -> Void in
+            if let error = error {
+                print("User login failed.")
+                print(error.localizedDescription)
+            } else {
+                print("User logged in successfully")
+                // display view controller that needs to shown after successful login
+                self.performSegueWithIdentifier("loginSegue", sender: nil)
+            }
+        }
     }
     
     @IBAction func onSignUp(sender: AnyObject) {
@@ -40,6 +50,7 @@ class LoginViewController: UIViewController {
                 } else {
                     print("User Registered successfully")
                     // manually segue to logged in view
+                    self.performSegueWithIdentifier("loginSegue", sender: nil)
                 }
             }
             
