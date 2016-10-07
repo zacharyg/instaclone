@@ -23,9 +23,18 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
 
         // Do any additional setup after loading the view.
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PostViewController.onTimer), userInfo: nil, repeats: true)
+        //timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PostViewController.onTimer), userInfo: nil, repeats: true)
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(PostViewController.loadData), forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
         
     }
+    
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -45,7 +54,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // Do something with the found objects
                 if let posts = posts {
                     self.q = posts;
-                    
+                    self.tableView.reloadData()
                     
                 }
             } else {
