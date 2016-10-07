@@ -9,12 +9,16 @@
 import UIKit
 import Parse
 
-class PostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PostViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
     var timer: NSTimer!
-    var q: [PFObject] = [PFObject]();
+    var q: [PFObject] = [PFObject]()
+    
+    var isMoreDataLoading = false
+    var loadingMoreView:InfiniteScrollActivityView?
+    var skipAmount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +29,22 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Do any additional setup after loading the view.
         //timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PostViewController.onTimer), userInfo: nil, repeats: true)
         
+        // Set up Infinite Scroll loading indicator
+        let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.hidden = true
+        tableView.addSubview(loadingMoreView!)
+        
+        var insets = tableView.contentInset;
+        insets.bottom += InfiniteScrollActivityView.defaultHeight;
+        tableView.contentInset = insets
+        
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(PostViewController.loadData), forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
+        
+        loadData()
+        self.tableView.reloadData()
         
     }
     
@@ -95,13 +112,56 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    func onTimer(){
-        //print("refresh")
-        loadData()
-        self.tableView.reloadData()
-        
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            // When the user has scrolled past the threshold, start requesting
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+                isMoreDataLoading = true
+                
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                // ... Code to load more results ...
+                loadMoreData()
+            }
+        }
     }
     
+    func loadMoreData(){
+        let query = PFQuery(className: "Post")
+        query.orderByDescending("createdAt")
+        query.includeKey("author")
+        query.limit = 20
+        //https://www.makeschool.com/tutorials/build-a-photo-sharing-app-part-1/pull-to-refresh-endless-scrolling
+        query.skip = 20 + skipAmount
+        query.findObjectsInBackgroundWithBlock { (posts: [PFObject]?, error: NSError?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                print("Successfully retrieved \(posts!.count) messages.")
+                // Do something with the found objects
+                if let posts = posts {
+                    self.q.appendContentsOf(posts);
+                    self.skipAmount += posts.count
+                    self.tableView.reloadData()
+                    
+                    self.isMoreDataLoading = false
+                    // Stop the loading indicator
+                    self.loadingMoreView!.stopAnimating()
+                    
+                }
+            } else {
+                // Log details of the failure
+                print("Error: \(error!) \(error!.userInfo)")
+            }
+        }
+    }
     
     
 

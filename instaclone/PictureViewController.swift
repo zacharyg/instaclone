@@ -65,6 +65,9 @@ class PictureViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let image = imagePicked.image{
             Post.postUserImage(resize(image, newSize: CGSizeMake(250, 250)), withCaption: captionField.text, withCompletion:{(success: Bool, error: NSError?) -> Void in
                 print("posted user image")
+                
+                self.imagePicked.image = nil
+                self.captionField.text = nil
             }) //try putting nil?
         }
         
@@ -81,6 +84,8 @@ class PictureViewController: UIViewController, UIImagePickerControllerDelegate, 
         UIGraphicsEndImageContext()
         return newImage
     }
+    
+    
     
     /*
     // MARK: - Navigation
