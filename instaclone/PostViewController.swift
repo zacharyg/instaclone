@@ -13,6 +13,7 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
+    var timer: NSTimer!
     var q: [PFObject] = [PFObject]();
 
     override func viewDidLoad() {
@@ -22,7 +23,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
 
         // Do any additional setup after loading the view.
-        loadData();
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(PostViewController.onTimer), userInfo: nil, repeats: true)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,6 +45,8 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // Do something with the found objects
                 if let posts = posts {
                     self.q = posts;
+                    
+                    
                 }
             } else {
                 // Log details of the failure
@@ -54,14 +58,42 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        
         return q.count
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
- 
+        let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostCell
+        let post = q[indexPath.row]
+        let user = post["author"] as! PFUser
+        cell.userNameLabel.text = user.username
+        let caption = post["caption"] as! String
+        cell.captionLabel.text = caption
+        let userImageFile = post["media"]
+        userImageFile.getDataInBackgroundWithBlock {
+            (imageData: NSData?, error: NSError?) -> Void in
+            if error == nil {
+                if let imageData = imageData {
+                    let image = UIImage(data:imageData)
+                    cell.imageView?.image = image
+
+                }
+            }
+        }
+                let likes = post["likesCount"] as! Int
+        cell.likesLabel.text = "\(likes)"
+        
+        return cell
     }
+    
+    func onTimer(){
+        //print("refresh")
+        loadData()
+        self.tableView.reloadData()
+        
+    }
+    
+    
     
 
     /*

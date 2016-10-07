@@ -15,6 +15,7 @@
 		86BEE3B61DA60C6C007763C6 /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEE3B51DA60C6C007763C6 /* PictureViewController.swift */; };
 		86BEE3B91DA61571007763C6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEE3B81DA61571007763C6 /* Post.swift */; };
 		86BEE3BB1DA61E42007763C6 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEE3BA1DA61E42007763C6 /* PostViewController.swift */; };
+		86BEE3BF1DA62A7E007763C6 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEE3BE1DA62A7E007763C6 /* PostCell.swift */; };
 		E47A05DFEE542D37447190B0 /* Pods_instaclone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A86BB14307EF72D97CB0F47 /* Pods_instaclone.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		86BEE3B51DA60C6C007763C6 /* PictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureViewController.swift; sourceTree = "<group>"; };
 		86BEE3B81DA61571007763C6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		86BEE3BA1DA61E42007763C6 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		86BEE3BE1DA62A7E007763C6 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		86BEE3BD1DA62327007763C6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				86BEE3BE1DA62A7E007763C6 /* PostCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				86BEE3B61DA60C6C007763C6 /* PictureViewController.swift in Sources */,
 				861D1B4D1D95A9BA007E36C0 /* AppDelegate.swift in Sources */,
 				86BEE3B91DA61571007763C6 /* Post.swift in Sources */,
+				86BEE3BF1DA62A7E007763C6 /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

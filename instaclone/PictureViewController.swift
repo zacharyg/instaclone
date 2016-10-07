@@ -28,7 +28,7 @@ class PictureViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         // Get the image captured by the UIImagePickerController
-        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        //let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
         
         // Do something with the images (based on your use case)
@@ -63,12 +63,25 @@ class PictureViewController: UIViewController, UIImagePickerControllerDelegate, 
 //            
 //        }
         if let image = imagePicked.image{
-            Post.postUserImage(image, withCaption: captionField.text, withCompletion:{(success: Bool, error: NSError?) -> Void in
+            Post.postUserImage(resize(image, newSize: CGSizeMake(250, 250)), withCaption: captionField.text, withCompletion:{(success: Bool, error: NSError?) -> Void in
                 print("posted user image")
             }) //try putting nil?
         }
         
     }
+    
+    func resize(image: UIImage, newSize: CGSize) -> UIImage {
+        let resizeImageView = UIImageView(frame: CGRectMake(0, 0, newSize.width, newSize.height))
+        resizeImageView.contentMode = UIViewContentMode.ScaleAspectFill
+        resizeImageView.image = image
+        
+        UIGraphicsBeginImageContext(resizeImageView.frame.size)
+        resizeImageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     /*
     // MARK: - Navigation
 
