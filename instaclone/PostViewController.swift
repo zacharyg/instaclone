@@ -90,7 +90,17 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
         let post = q[indexPath.row]
+        
+        cell.parseObject = post
+        
+        let date = post.createdAt! as NSDate
+        let dateFormat = NSDateFormatter()
+        dateFormat.dateFormat = "EEE, MMM d, h:mm a"
+        cell.dateLabel.text = NSString(format: "%@", dateFormat.stringFromDate(date)) as String
+        
         let user = post["author"] as! PFUser
         cell.userNameLabel.text = user.username
         let caption = post["caption"] as! String
@@ -106,8 +116,11 @@ class PostViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
         }
-                let likes = post["likesCount"] as! Int
+        
+        let likes = post["likesCount"] as! Int
+        //cell.textLabel!.text = "\(likes)"
         cell.likesLabel.text = "\(likes)"
+
         
         return cell
     }

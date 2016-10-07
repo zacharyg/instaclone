@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class PostCell: UITableViewCell {
     
@@ -14,6 +15,9 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    var parseObject:PFObject?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +29,7 @@ class PostCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        
     }
     
     override func layoutSubviews() {
@@ -41,5 +46,15 @@ class PostCell: UITableViewCell {
     }
 
     @IBAction func likePressed(sender: AnyObject) {
+        if(parseObject != nil) {
+            if var likes:Int? = parseObject!.objectForKey("likesCount") as? Int {
+                likes! = likes! + 1
+                
+                parseObject!.setObject(likes!, forKey: "likesCount");
+                parseObject!.saveInBackground();
+                
+                likesLabel?.text = "\(likes!)";
+            }
+        }
     }
 }
